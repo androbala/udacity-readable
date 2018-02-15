@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getCategories} from './utils/Api';
+import {getCategories} from '../utils/api';
+import AppTopBar from './AppTopBar/AppTopBar';
+import SideMenu from './SideMenu/SideMenu';
 
 class App extends Component {
 	constructor(props) {
@@ -20,9 +22,10 @@ class App extends Component {
 	render() {
 		return (
             <div className="App">
-              <div className="App-header">
-                <h2>Welcome to React</h2>
-              </div>
+              <AppTopBar/>
+			  <div className="Side-menu">
+				  <SideMenu categories={this.state.categories}/>
+			  </div>
               <p className="App-intro">
                 To get started, edit <code>src/App.js</code> and save to reload.
               </p>

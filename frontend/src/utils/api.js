@@ -6,5 +6,5 @@ const headers = {
 };
 export const getCategories = () => {
 	return fetch(BASE_URI + '/categories', { headers })
-			.then(res => res.json()) //.text()
+			.then(res => res.json()); //.text()
 }

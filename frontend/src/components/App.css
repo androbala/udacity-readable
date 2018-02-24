@@ -20,4 +20,11 @@
 .Side-menu {
 	float: left;
 	margin-top: 10px;
+	width: 15%;
+}
+
+.Posts-list {
+	float: left;
+	margin: 10px auto;
+	width: 75%;
 }

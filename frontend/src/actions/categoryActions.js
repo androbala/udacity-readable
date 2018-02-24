@@ -10,7 +10,6 @@ export const setCategories = categories => ({
 
 export const getCategories = () => dispatch => (
 	api.getCategories().then(categories => {
-		console.log(categories);
 		dispatch(setCategories(categories))
 	})
 )

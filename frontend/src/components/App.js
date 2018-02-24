@@ -6,6 +6,17 @@ import './App.css';
 import {getCategories} from './../actions/categoryActions';
 import AppTopBar from './AppTopBar/AppTopBar';
 import SideMenu from './SideMenu/SideMenu';
+import PostsList from './Posts/PostsList';
+import Grid from 'material-ui/Grid';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+	root: {
+		flexGrow: 1,
+		marginTop: 10,
+	},
+});
 
 class App extends Component {
 	componentDidMount() {
@@ -13,20 +24,36 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.props.categories);
+		const { classes } = this.props;
+
 		return (
 			<div className="App">
 				<AppTopBar/>
-				<div className="Side-menu">
-					<SideMenu categories={this.props.categories}/>
-				</div>
-				<p className="App-intro">
-					To get started, edit <code>src/App.js</code> and save to reload.
-				</p>
-				<p>
-					Talking to the backend yields these categories: <br/>
-					{this.props.categories && JSON.stringify(this.props.categories)}
-				</p>
+				<Route exact path="/" render={() => (
+					<div className={classes.root}>
+						<Grid container spacing={24}>
+							<Grid item>
+								<SideMenu categories={this.props.categories}/>
+							</Grid>
+							<Grid item sm={9} className={classes.list}>
+								<PostsList category="all"/>
+							</Grid>
+						</Grid>
+					</div>
+				)}/>
+
+				<Route path="/categories/:categoryPath" render={() => (
+					<div className={classes.root}>
+						<Grid container spacing={24}>
+							<Grid item>
+								<SideMenu categories={this.props.categories}/>
+							</Grid>
+							<Grid item sm={9} className={classes.list}>
+								<PostsList/>
+							</Grid>
+						</Grid>
+					</div>
+				)}/>
 			</div>
 		);
 	}
@@ -34,8 +61,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
 	return {
-		categories: state.categories ? state.categories : [],
-		//posts: state.posts ? state.posts : []
+		categories: state.categories ? state.categories.categories : [],
 	}
 }
 
@@ -45,4 +71,8 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+App.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App)));

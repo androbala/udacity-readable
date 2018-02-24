@@ -10,6 +10,8 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import ChevronRightIcon  from 'material-ui-icons/ChevronRight';
 
+import PostsList from './../Posts/PostsList'
+
 const styles = theme => ({
 	root: {
 		width: '100%',
@@ -26,6 +28,10 @@ class SideMenu extends React.Component {
 
 	handleClick = () => {
 		this.setState({open: !this.state.open});
+	};
+
+	handleItemClick = event => {
+		<PostsList category={event.target.innerText}/>
 	};
 
 	render() {
@@ -51,7 +57,7 @@ class SideMenu extends React.Component {
 					<Collapse in={this.state.open} timeout="auto" unmountOnExit>
 						{categories && categories.length > 0 && categories.map((category, index) => (
 							<List component="div" disablePadding key={index}>
-								<ListItem button className={classes.nested}>
+								<ListItem button className={classes.nested} onClick={this.handleItemClick}>
 									<ListItemIcon>
 										<ChevronRightIcon />
 									</ListItemIcon>

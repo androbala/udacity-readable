@@ -1,24 +1,8 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
+import categoryReducer from './categoryReducer';
+import postReducer from './postReducer';
 
-import {
-	SET_CATEGORIES,
-	GET_CATEGORIES,
-} from './../actions/categoryActions'
-
-const initialState = {
-	categories: [],
-};
-
-function mainReducer(state = initialState, action) {
-	switch(action.type) {
-		case SET_CATEGORIES :
-			return {
-				...state,
-				categories: action.categories.categories
-			}
-		default :
-			return state
-	}
-}
-
-export default mainReducer
+export default combineReducers({
+	categories: categoryReducer,
+	posts: postReducer,
+});

@@ -5,6 +5,6 @@ const headers = {
 	'Content-Type': 'application/json'
 };
 export const getCategories = () => {
-	return fetch(BASE_URI + '/categories', { headers })
-			.then(res => res.json()); //.text()
+	return fetch(BASE_URI + '/categories', {headers})
+		.then(res => res.json()); //.text()
 }

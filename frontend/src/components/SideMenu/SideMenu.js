@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 //import ListSubheader from 'material-ui/List/ListSubheader';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ListIcon from 'material-ui-icons/List';
 import HomeIcon from 'material-ui-icons/Home';
@@ -22,14 +22,14 @@ const styles = theme => ({
 });
 
 class SideMenu extends React.Component {
-	state = { open: true };
+	state = {open: true};
 
 	handleClick = () => {
-		this.setState({ open: !this.state.open });
+		this.setState({open: !this.state.open});
 	};
 
 	render() {
-		const { classes, categories } = this.props;
+		const {classes, categories} = this.props;
 		return (
 			<div className={classes.root}>
 				<List
@@ -39,13 +39,13 @@ class SideMenu extends React.Component {
 						<ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
-						<ListItemText inset primary="Home" />
+						<ListItemText inset primary="Home"/>
 					</ListItem>
 					<ListItem button onClick={this.handleClick}>
 						<ListItemIcon>
 							<ListIcon />
 						</ListItemIcon>
-						<ListItemText inset primary="Categories" />
+						<ListItemText inset primary="Categories"/>
 						{this.state.open ? <ExpandLess /> : <ExpandMore />}
 					</ListItem>
 					<Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -55,7 +55,7 @@ class SideMenu extends React.Component {
 									<ListItemIcon>
 										<ChevronRightIcon />
 									</ListItemIcon>
-									<ListItemText inset primary={category.name} />
+									<ListItemText inset primary={category.name}/>
 								</ListItem>
 							</List>
 						))}

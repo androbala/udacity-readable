@@ -7,9 +7,10 @@ import {getCategories} from './../actions/categoryActions';
 import AppTopBar from './AppTopBar/AppTopBar';
 import SideMenu from './SideMenu/SideMenu';
 import PostsList from './Posts/PostsList';
+import PostDetail from './Posts/PostDetail';
 import Grid from 'material-ui/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 const styles = theme => ({
 	root: {
@@ -24,36 +25,31 @@ class App extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
+		const {classes} = this.props;
 
 		return (
 			<div className="App">
 				<AppTopBar/>
-				<Route exact path="/" render={() => (
-					<div className={classes.root}>
-						<Grid container spacing={24}>
-							<Grid item>
-								<SideMenu categories={this.props.categories}/>
-							</Grid>
-							<Grid item sm={9} className={classes.list}>
-								<PostsList category="all"/>
-							</Grid>
+				<div className={classes.root}>
+					<Grid container spacing={24}>
+						<Grid item>
+							<SideMenu categories={this.props.categories}/>
 						</Grid>
-					</div>
-				)}/>
-
-				<Route path="/categories/:categoryPath" render={() => (
-					<div className={classes.root}>
-						<Grid container spacing={24}>
-							<Grid item>
-								<SideMenu categories={this.props.categories}/>
-							</Grid>
-							<Grid item sm={9} className={classes.list}>
+						<Grid item sm={1}>
+						</Grid>
+						<Grid item sm={8} className={classes.list}>
+							<Route exact path="/" render={() => (
 								<PostsList/>
-							</Grid>
+							)}/>
+							<Route path="/categories/:categoryPath" render={() => (
+								<PostsList/>
+							)}/>
+							<Route path="/posts/:id" render={() => (
+								<PostDetail/>
+							)}/>
 						</Grid>
-					</div>
-				)}/>
+					</Grid>
+				</div>
 			</div>
 		);
 	}

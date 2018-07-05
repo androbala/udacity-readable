@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
 //import ListSubheader from 'material-ui/List/ListSubheader';
 import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
@@ -10,8 +11,6 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import ChevronRightIcon  from 'material-ui-icons/ChevronRight';
 
-import PostsList from './../Posts/PostsList'
-
 const styles = theme => ({
 	root: {
 		width: '100%',
@@ -21,17 +20,16 @@ const styles = theme => ({
 	nested: {
 		paddingLeft: theme.spacing.unit * 4,
 	},
+	link: {
+		textDecoration: 'none',
+	},
 });
 
 class SideMenu extends React.Component {
 	state = {open: true};
 
-	handleClick = () => {
+	handleClick = (path) => {
 		this.setState({open: !this.state.open});
-	};
-
-	handleItemClick = event => {
-		<PostsList category={event.target.innerText}/>
 	};
 
 	render() {
@@ -45,7 +43,7 @@ class SideMenu extends React.Component {
 						<ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
-						<ListItemText inset primary="Home"/>
+						<ListItemText inset primary={<Link className={classes.link} to='/'>Home</Link>}/>
 					</ListItem>
 					<ListItem button onClick={this.handleClick}>
 						<ListItemIcon>
@@ -57,11 +55,11 @@ class SideMenu extends React.Component {
 					<Collapse in={this.state.open} timeout="auto" unmountOnExit>
 						{categories && categories.length > 0 && categories.map((category, index) => (
 							<List component="div" disablePadding key={index}>
-								<ListItem button className={classes.nested} onClick={this.handleItemClick}>
+								<ListItem button className={classes.nested}>
 									<ListItemIcon>
 										<ChevronRightIcon />
 									</ListItemIcon>
-									<ListItemText inset primary={category.name}/>
+									<ListItemText inset primary={<Link className={classes.link} to={'/categories/' + category.path}>{category.name}</Link>}/>
 								</ListItem>
 							</List>
 						))}

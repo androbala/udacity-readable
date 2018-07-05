@@ -8,6 +8,14 @@ export const setPosts = posts => ({
 	posts: posts
 })
 
-export const getPosts = () => dispatch => (
+export const getAllPosts = () => dispatch => (
 	api.getPosts().then(posts => dispatch(setPosts(posts)))
+)
+
+export const getPostsByCategory = (category) => dispatch => (
+	api.getPostsByCategory(category).then(posts => dispatch(setPosts(posts)))
+)
+
+export const getPostById = (id) => dispatch => (
+	api.getPostById(id).then(post => dispatch(setPosts(post)))
 )
